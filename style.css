@@ -1,0 +1,106 @@
+/* Emoezamos reiniciando los valores por defecto de los navegadores a través del selector universal. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Fraunces", serif;
+  color: #fff;
+}
+/* Agregamos unos estilos a nuestro html por defecto como la fuente, color y otros*/
+
+html {
+  font-size: 62.5%;
+}
+body {
+  background-color: #224870;
+}
+
+/* Ahora sí, pasamos a darle la forma inicial a nuestro contenedor*/
+
+.container {
+  height: 100vh; /* Usamos la medida relativa vh, que hace referencia a que queremos el total del viewport de altura */
+  display: flex;
+  justify-content: center; /* Todo el contenido en el centro*/
+  align-items: center; /*Justo en el medio del eje principal*/
+}
+
+/* Estilos para la calculadora */
+
+.calculator-container {
+  display: grid; /*Nos permitirá acomodar los elementos creando una plantilla de cuadricula y hacer más fácil acomodar los botones*/
+  grid-template-columns: repeat(
+    4,
+    7.5rem
+  ); /* Creamos 4 columnas de un ancho de 7.5 rem o 75px que se siguen repitiendo*/
+
+  /* Para las filas será algo diferente ya que tenemos que crear una fila entera para el display y los botones tendrán otro tipo de tamaño*/
+  grid-template-rows: 16rem repeat(5, 7.5rem);
+  /* El primer argumento hace referencia al alto total de nuestro display (primera fila de 16rem o 160px)*/
+  /* El segundo argumento repeat() de vuelta para el resto de las filas que serán 5 y tendrán una medida de 7.5rem o 75px aprox*/
+
+  background-color: #00916e;
+  padding: 1.5rem;
+  border-radius: 3.2rem;
+  box-shadow: 1.5rem 1rem 0rem 0.5rem #00000033;
+  /* 1.5rem de movimiento de la sombra a la derecha, 1 rem de movimiento de la sombra sobre el eje de altura*/
+}
+
+/* Estilos para los botones sin selector*/
+
+button {
+  cursor: pointer; /* establecemos para que cada vez que se pare el cursor sobre el botón, este cursor cambie*/
+  margin: 0.5rem;
+  padding: 0;
+  border-radius: 3.2rem;
+  font-size: 1.5rem;
+  border: none; /* Por defecto la etiqueta tiene un borde predeterminado, debemos eliminarlo*/
+  background-color: #00916e; /*Inicialmente no se percibirá pero más adelante agregamos una sombra para que se perciba la sensación de profundidad con un ligero relieve*/
+  box-shadow: 0.5rem 0.5rem 1rem -0.3rem #00000040,
+    -0.5rem -0.5rem 1.5rem 0.3rem #00ffc11f;
+  /* Agregaremos dos sombras jugando con la percepción de la luz.
+  Primer argumento: Asigamos 0.5 rem de movimiento de la sombra en el eje x, 0.5 rem en el eje y. #0000040 hace referencia a un color negro con 40% de opacidad.
+  Segundo argumento: como se orienta hacia el otro lado asignamos -0.5rem en el eje de la x y -0.5rem en el eje y*/
+}
+
+/* Asignamos la pseudoclase "active" para cuando el usuario presione una tecla se cambie el background del botón*/
+
+button:active {
+  background-color: #006f54;
+}
+/* Automáticamente los botones por defecto nos hacen un "outline" despues de presionar una tecla de la calculadoa y posteriormente presionar una tecla de nuestro teclado, ese outline puede ser molesto, así que debemos quitarlo, para eso usamos la pseudoclase "focus"*/
+button:focus {
+  outline: none;
+}
+
+/* Notemos que el display de la calculadora por ahora se vé con la medida que no es, pues, nuestro display debe tener todo el ancho de la calculadora*/
+
+.display {
+  grid-column: 1 / -1; /*Con este argumento hacemos referencia a que nuestro display (celda número 1) vaya desde la linea número 1 de nuestra plantilla (linea inicial) hasta la linea número -1 de nuestra plantilla (linea final) y así ocupar todo el espacio disponible de ancho de nuestra cuadrícula */
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column; /* Uno arriba del otro */
+  align-items: flex-end; /* Todo a la derecha*/
+  justify-content: space-between; /* Para que se separen los valores*/
+  margin: 1rem 1rem 2rem; /* Queremos que abajo tenga un poco más de espacio que separen el display de las teclas*/
+  background-color: #363636;
+  border-radius: 3.2rem;
+  text-align: right; /* Por si se va más de una linea*/
+  word-break: break-all; /*establece si los saltos de línea aparecen donde el texto, de otro modo desbordaría su cuadro de contenido. Break-all: Para evitar el desbordamiento, se deben insertar saltos de palabra entre dos caracteres cualesquiera.*/
+  box-shadow: 0px 0px 0px 1rem #00000033;
+}
+
+/* Nuestro display ya está listo, sólo falta definir el ancho de los botones C y 0*/
+
+.col-2 {
+  grid-column: span 2; /* Le diremos a este botón que ocupe dos columnas de ancho */
+}
+
+/* Finalmente daremos estilo al texto de los números que se muestran en nuestro display, a estos le asignamos selectores de id*/
+
+#valor-actual {
+  font-size: 1.5rem;
+}
+
+#valor-anterior {
+  font-size: 2rem;
+}
