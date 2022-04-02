@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora</title>
+    <meta
+      name="description"
+      content="Calculadora para realizar operaciones básicas"
+    />
+    <meta name="autor" content="Juan Camilo Duarte" />
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/calculadora2.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="./display.js" type="text/javascript"></script>
+    <script src="./calculadora.js" type="text/javascript"></script>
+    <script src="./app.js" type="text/javascript" defer></script>
+  <body>
+      <div class="container">
+          <div class="calculator-container">
+              <div class="display">
+                  <div id="valor-anterior"></div>  <!--Valor que está arriba en la pantalla de la calculadora-->
+                  <div id="valor-actual"></div> <!--Valor actual, el valor que ingresa el usuario cuando teclea y aparece en la parte inferior del display-->
+              </div>
+              <!--La calculadora tiene 18 botones en total, así que rapidamente podemos agregarlos en un div, todos juntos y con grid daremos estilo-->
+              <!--Directamente en cada etiqueta empezamos a asignarle los valores a la calculadora, correspondientes al valor de la tecla. El orden de asignacion es de izquierda a derecha y de arriba hacia abajo según vemos en la imágen-->
+              <!--A los números le asignamos la clase "numero" para identificarlos. El "." cuenta como un número porque va a ser parte de los valores-->
+              <!--A los botones que ocupan dos lugares en nuestras filas les asignaremos la clase "col-2", que en este caso son -->
+              <!--A los operadores le asiganremos la clase "operador"-->
+              <button class="col-2">C</button>
+              <button>&larr;</button> <!--La flecha hacia la izquierda podemos hacerla usando el carácter especial "&larr;" -->
+              <button class="operador">%</button>
+              <button class="numero">7</button>
+              <button class="numero">8</button>
+              <button class="numero">9</button>
+              <button class="operador">X</button>
+              <button class="numero">4</button>
+              <button class="numero">5</button>
+              <button class="numero">6</button>
+              <button class="operador">-</button>
+              <button class="numero">1</button>
+              <button class="numero">2</button>
+              <button class="numero">3</button>
+              <button class="operador">+</button>
+              <button class="col-2 numero">0</button> <!--Recordemos que acá hay dos clases declaradas, es decir, tenemos por un lado la clase "col-2" porque el botón ocupa dos filas y tenemos la clase "numero" porque cero es un número XD (No tiene nada que ver con combinadores o metodología BEM)-->
+              <button class="numero">.</button>
+              <button class="operador">=</button>
+          </div>
+      </div>
+  </body>
+</html>
