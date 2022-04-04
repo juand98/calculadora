@@ -18,3 +18,10 @@ const botonesOperadores = document.querySelectorAll(".operador");
 //console.log(botonesOperadores);
 
 // Tenemos ya cada uno de los elementos de nuestro html metidos en variables que utilizaremos en javascript para dar ineractividad a su contenido.
+
+const calculadora = new Calculadora();
+
+console.log(calculadora.sumar(2, 3));
+console.log(calculadora.restar(2, 3));
+console.log(calculadora.multiplicar(2, 3));
+console.log(calculadora.dividir(2, 3));
