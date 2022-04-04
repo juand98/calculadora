@@ -12,5 +12,9 @@ const displayValorActual = document.getElementById("valor-actual");
 
 const botonesNumeros = document.querySelectorAll(".numero");
 const botonesOperadores = document.querySelectorAll(".operador");
-console.log(botonesNumeros);
-console.log(botonesOperadores);
+
+// Podemos notar como se crean las NodeList para todos nuestros núemeros y para los operadores.
+//console.log(botonesNumeros);
+//console.log(botonesOperadores);
+
+// Tenemos ya cada uno de los elementos de nuestro html metidos en variables que utilizaremos en javascript para dar ineractividad a su contenido.
