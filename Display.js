@@ -1,4 +1,4 @@
-// En este archivo crearemos otra clase la cual será la encargada de controlar la calculadora y será esta la clase que va a interactuar con nuestros botones y mostrar en el display las interacciones.
+/* // En este archivo crearemos otra clase la cual será la encargada de controlar la calculadora y será esta la clase que va a interactuar con nuestros botones y mostrar en el display las interacciones.
 
 class Display {
   // Esta clase tendrá un constructor, es decir, cuando instanciemos la clase, pasaremos valores para llamarla. Según lo anterior esta clase requiere tener los dos valores que se muestran en el display, el "displayValorANterior" y el "displayValorActual" estos valores recordemos que son las variables previamente definidas que modifican el contenido de los elementos del display.
@@ -10,17 +10,17 @@ class Display {
     // Así hacemos que las dos variables anteriore sean dos propiedades de la clase. La palabra reservada this en la función constructora hace referencia a las propiedades que tendrá el objeto, en este caso "displayValorAnterior" y "displayValorActual" serán dos propiedades del constructor y sus valores estarán definidos por las variables previamente creadas con el mismo nombre.
 
     this.calculador = new Calculadora();
-    this.tipoDeOperación = undefined;
+    this.tipoOperación = undefined;
     //El display también tendrá una calduladora, la cual creamos una clase previamente para esta y en ella se encuentran los métodos que creamos para realizar las operaciones. Mandamos llamar la clase usando "new".
 
     this.valorActual = "";
     this.valorAnterior = "";
     // El display tendrá un "valorActual" y un "valorAnterior" que serán diferentes al display. El display es el elemento que queremos modificar y el "valorActual" y el "valorAnterior" que vamos a crear son los numeros que estamos guardando o presionando en pantalla.
-    this.tipoSigno = {
+    this.signos = {
       sumar: "+",
-      restar: "-",
-      multiplicar: "x",
       dividir: "/",
+      multiplicar: "x",
+      restar: "-",
     };
   }
 
@@ -38,15 +38,15 @@ class Display {
     this.valorActual = "";
     this.valorAnterior = "";
     //Además en este método queremos configurar que no haya ningún tipo de operación. Para eso agregamos en nuestro constructor un tipo de operación "this.tipoDeOperacion" que lo que hará es guardar el tipo de operación que estaba usando el usuario. Cuando borramos todo queremos que el tipo de operación sea undefined.
-    this.tipoDeOperación = undefined;
+    this.tipoOperación = undefined;
     this.imprimirValores(); // para actualizar el display agregamos el método previamente creado.
     //Por último recordemos agregar este método en el elemento del archivo html.
   }
 
   computar(tipo) {
     //Este método recibe como parámetro el tipo de operación.
-    this.tipoDeOperación !== "igual" && this.calcular();
-    this.tipoDeOperación = tipo;
+    this.tipoOperación !== "igual" && this.calcular();
+    this.tipoOperación = tipo;
     this.valorAnterior = this.valorActual || this.valorAnterior;
     this.valorActual = "";
     this.imprimirValores();
@@ -66,9 +66,9 @@ class Display {
 
   imprimirValores() {
     this.displayValorActual.textContent = this.valorActual; //El valor de la propiedad "displayValorActual" tendrá un "textContent", es decir configuraremos el texto que tiene el html como el valor de la propiedad.
-    /* this.displayValorAnterior.textContent = this.valorAnterior; */
+    //this.displayValorAnterior.textContent = this.valorAnterior;
     this.displayValorAnterior.textContent = `${this.valorAnterior} ${
-      this.tipoSigno[thist.tipoDeOperación]
+      this.signos[thist.tipoOperación] || ""
     }`;
   }
 
@@ -81,11 +81,73 @@ class Display {
     if (isNaN(valorAnterior) || isNaN(valorActual)) return; // Si cualquiera de estos dos valores es de tipo NaN no haremos ningún tipo de operación y de vuelta retornaresmos sin hacer la operación
 
     //En el caso que "valorAnterior" y "valorActual" sí tengan valores, tenemos que hacer un update de nuestro "valorActual"
-    this.valorActual = this.calculador[this.tipoDeOperación](
+    this.valorActual = this.calculador[this.tipoOperación](
       valorAnterior,
       valorActual
     );
     //acá es donde utilizamos nuestra calculadora para hacer nuestros cálculos, seleccionamos un método de la calculadora según el tipo de operación que haya seleccionado el usuario (this.tipoDeOperación), finalmente le pasamos los valores que creamos arriba.
     //Este método no nos sirve demasiado si no agregamos lo que necesitamos para los botones de operaciones (esto lo hacemos en nuestro archivo app.js).
+  }
+}
+ */
+
+class Display {
+  constructor(displayValorAnterior, displayValorActual) {
+    this.displayValorActual = displayValorActual;
+    this.displayValorAnterior = displayValorAnterior;
+    this.calculador = new Calculadora();
+    this.tipoOperacion = undefined;
+    this.valorActual = "";
+    this.valorAnterior = "";
+    this.signos = {
+      sumar: "+",
+      dividir: "/",
+      multiplicar: "x",
+      restar: "-",
+    };
+  }
+
+  borrar() {
+    this.valorActual = this.valorActual.toString().slice(0, -1);
+    this.imprimirValores();
+  }
+
+  borrarTodo() {
+    this.valorActual = "";
+    this.valorAnterior = "";
+    this.tipoOperacion = undefined;
+    this.imprimirValores();
+  }
+
+  computar(tipo) {
+    this.tipoOperacion !== "igual" && this.calcular();
+    this.tipoOperacion = tipo;
+    this.valorAnterior = this.valorActual || this.valorAnterior;
+    this.valorActual = "";
+    this.imprimirValores();
+  }
+
+  agregarNumero(numero) {
+    if (numero === "." && this.valorActual.includes(".")) return;
+    this.valorActual = this.valorActual.toString() + numero.toString();
+    this.imprimirValores();
+  }
+
+  imprimirValores() {
+    this.displayValorActual.textContent = this.valorActual;
+    this.displayValorAnterior.textContent = `${this.valorAnterior} ${
+      this.signos[this.tipoOperacion] || ""
+    }`;
+  }
+
+  calcular() {
+    const valorAnterior = parseFloat(this.valorAnterior);
+    const valorActual = parseFloat(this.valorActual);
+
+    if (isNaN(valorActual) || isNaN(valorAnterior)) return;
+    this.valorActual = this.calculador[this.tipoOperacion](
+      valorAnterior,
+      valorActual
+    );
   }
 }
