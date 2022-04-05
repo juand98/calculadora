@@ -16,6 +16,12 @@ class Display {
     this.valorActual = "";
     this.valorAnterior = "";
     // El display tendrá un "valorActual" y un "valorAnterior" que serán diferentes al display. El display es el elemento que queremos modificar y el "valorActual" y el "valorAnterior" que vamos a crear son los numeros que estamos guardando o presionando en pantalla.
+    this.tipoSigno = {
+      sumar: "+",
+      restar: "-",
+      multiplicar: "x",
+      dividir: "/",
+    };
   }
 
   //Una vez listo nuestro constructor procedemos a generar los métodos para poder agregar números a nuestra calcduladora.
@@ -37,6 +43,15 @@ class Display {
     //Por último recordemos agregar este método en el elemento del archivo html.
   }
 
+  computar(tipo) {
+    //Este método recibe como parámetro el tipo de operación.
+    this.tipoDeOperación !== "igual" && this.calcular();
+    this.tipoDeOperación = tipo;
+    this.valorAnterior = this.valorActual || this.valorAnterior;
+    this.valorActual = "";
+    this.imprimirValores();
+  }
+
   agregarNumero(numero) {
     //Este metodo recibe un parámetro, el cual será un número.
     if (numero === "." && this.valorActual.includes(".")) return; //Si el valor ingresado es un punto y en el valor actual ya hay un punto no retornará nada y así evitamos que se ponga más de un punto.
@@ -51,7 +66,10 @@ class Display {
 
   imprimirValores() {
     this.displayValorActual.textContent = this.valorActual; //El valor de la propiedad "displayValorActual" tendrá un "textContent", es decir configuraremos el texto que tiene el html como el valor de la propiedad.
-    this.displayValorAnterior.textContent = this.valorAnterior;
+    /* this.displayValorAnterior.textContent = this.valorAnterior; */
+    this.displayValorAnterior.textContent = `${this.valorAnterior} ${
+      this.tipoSigno[thist.tipoDeOperación]
+    }`;
   }
 
   // Creamos el método para hacer los calculos. Este tomará los valores que tiene cargados el display y darselos a la calculadora para que haga el calculo.
@@ -61,5 +79,13 @@ class Display {
     const valorActual = parseFloat(this.valorActual); // Con esto ya tenemos guardados nuestros dos valores como numeros para ser utilizados.
 
     if (isNaN(valorAnterior) || isNaN(valorActual)) return; // Si cualquiera de estos dos valores es de tipo NaN no haremos ningún tipo de operación y de vuelta retornaresmos sin hacer la operación
+
+    //En el caso que "valorAnterior" y "valorActual" sí tengan valores, tenemos que hacer un update de nuestro "valorActual"
+    this.valorActual = this.calculador[this.tipoDeOperación](
+      valorAnterior,
+      valorActual
+    );
+    //acá es donde utilizamos nuestra calculadora para hacer nuestros cálculos, seleccionamos un método de la calculadora según el tipo de operación que haya seleccionado el usuario (this.tipoDeOperación), finalmente le pasamos los valores que creamos arriba.
+    //Este método no nos sirve demasiado si no agregamos lo que necesitamos para los botones de operaciones (esto lo hacemos en nuestro archivo app.js).
   }
 }

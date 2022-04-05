@@ -28,3 +28,8 @@ botonesNumeros.forEach((boton) => {
 });
 // Para lo anterior usamos un .forEach donde tednremos cada uno de los botones. Posteriomente como argumento creamos una función, esta función a cada botón le agregará un eventlistener de click y como segundo parámetro que tiene que pasar cada vez que el usuario haga click en uno de nuestros botones e display agregue un número, para ello debemos mandar llamar una instancia de la clase display antes del .forEach.
 // Resuminedo: se manda a llamar la variable que modifica el contenido de nuestro HTML, luego con el forEach el cual recorrerá cada botón, a cada botón se le asignara un eventlistener de click, que cada vez que el usuario presione un numero o clickee sobre el se agrega el número en el constructor con el valor que tiene el elemento en el archivo HTML.
+
+botonesOperadores.forEach((boton) => {
+  //Seleccionamos todos los botones de operadores e igualmente hacemos un .forEach para cada botón. Agregamos una funcion que tendrá un eventlistener de click pero en este caso lo que queremos hacer es usar una funcion de nuestro display que crearemos ahora mismo la cual se llamará "computar" la cúal va  a recibir un valor. El valor que recibirá será el valor del tipo de operación que queremos hacer. Para estoo en nuestro boton en el html agregamos el atributo "value" para cada tipo de operación que queramos hacer.
+  boton.addEventListener("click", () => display.computar(boton.value)); //Usamos "value" y no inner.HTML porque el contenido de nuestra etiqueta, en este caso los simbolos no nos van a servir para elegir cada una de nuestras métodos de la calculadora, entonces agregamos valores que sean iguales a nuestros metodos de la calculadora y por eso a cada uno le asginamos esos valores.
+});
