@@ -19,9 +19,12 @@ const botonesOperadores = document.querySelectorAll(".operador");
 
 // Tenemos ya cada uno de los elementos de nuestro html metidos en variables que utilizaremos en javascript para dar ineractividad a su contenido.
 
-const calculadora = new Calculadora();
+// Ahora queremos que cada vez que se presione un botón se agregue el valor del botón al display, así que en este archivo empezamos a realizar la interacción. Para ello seleccionamos "botonesNumeros" y le agregaremos un eventlistener de click a cada uno.
 
-console.log(calculadora.sumar(2, 3));
-console.log(calculadora.restar(2, 3));
-console.log(calculadora.multiplicar(2, 3));
-console.log(calculadora.dividir(2, 3));
+const display = new Display(displayValorAnterior, displayValorActual); //Los parametros que necesita esta clase están definidos  en el constructor.
+
+botonesNumeros.forEach((boton) => {
+  boton.addEventListener("click", () => display.agregarNumero(boton.innerHTML)); //Cada vez que se presione un botón, el display agregue un número y el número que tiene que agregar es el número que le corresponda al botón que tenemos dentro del elemento en el archivo html (inner.HTML).
+});
+// Para lo anterior usamos un .forEach donde tednremos cada uno de los botones. Posteriomente como argumento creamos una función, esta función a cada botón le agregará un eventlistener de click y como segundo parámetro que tiene que pasar cada vez que el usuario haga click en uno de nuestros botones e display agregue un número, para ello debemos mandar llamar una instancia de la clase display antes del .forEach.
+// Resuminedo: se manda a llamar la variable que modifica el contenido de nuestro HTML, luego con el forEach el cual recorrerá cada botón, a cada botón se le asignara un eventlistener de click, que cada vez que el usuario presione un numero o clickee sobre el se agrega el número en el constructor con el valor que tiene el elemento en el archivo HTML.
