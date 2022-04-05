@@ -1,4 +1,4 @@
-/* // En este archivo crearemos otra clase la cual será la encargada de controlar la calculadora y será esta la clase que va a interactuar con nuestros botones y mostrar en el display las interacciones.
+// En este archivo crearemos otra clase la cual será la encargada de controlar la calculadora y será esta la clase que va a interactuar con nuestros botones y mostrar en el display las interacciones.
 
 class Display {
   // Esta clase tendrá un constructor, es decir, cuando instanciemos la clase, pasaremos valores para llamarla. Según lo anterior esta clase requiere tener los dos valores que se muestran en el display, el "displayValorANterior" y el "displayValorActual" estos valores recordemos que son las variables previamente definidas que modifican el contenido de los elementos del display.
@@ -87,67 +87,5 @@ class Display {
     );
     //acá es donde utilizamos nuestra calculadora para hacer nuestros cálculos, seleccionamos un método de la calculadora según el tipo de operación que haya seleccionado el usuario (this.tipoDeOperación), finalmente le pasamos los valores que creamos arriba.
     //Este método no nos sirve demasiado si no agregamos lo que necesitamos para los botones de operaciones (esto lo hacemos en nuestro archivo app.js).
-  }
-}
- */
-
-class Display {
-  constructor(displayValorAnterior, displayValorActual) {
-    this.displayValorActual = displayValorActual;
-    this.displayValorAnterior = displayValorAnterior;
-    this.calculador = new Calculadora();
-    this.tipoOperacion = undefined;
-    this.valorActual = "";
-    this.valorAnterior = "";
-    this.signos = {
-      sumar: "+",
-      dividir: "/",
-      multiplicar: "x",
-      restar: "-",
-    };
-  }
-
-  borrar() {
-    this.valorActual = this.valorActual.toString().slice(0, -1);
-    this.imprimirValores();
-  }
-
-  borrarTodo() {
-    this.valorActual = "";
-    this.valorAnterior = "";
-    this.tipoOperacion = undefined;
-    this.imprimirValores();
-  }
-
-  computar(tipo) {
-    this.tipoOperacion !== "igual" && this.calcular();
-    this.tipoOperacion = tipo;
-    this.valorAnterior = this.valorActual || this.valorAnterior;
-    this.valorActual = "";
-    this.imprimirValores();
-  }
-
-  agregarNumero(numero) {
-    if (numero === "." && this.valorActual.includes(".")) return;
-    this.valorActual = this.valorActual.toString() + numero.toString();
-    this.imprimirValores();
-  }
-
-  imprimirValores() {
-    this.displayValorActual.textContent = this.valorActual;
-    this.displayValorAnterior.textContent = `${this.valorAnterior} ${
-      this.signos[this.tipoOperacion] || ""
-    }`;
-  }
-
-  calcular() {
-    const valorAnterior = parseFloat(this.valorAnterior);
-    const valorActual = parseFloat(this.valorActual);
-
-    if (isNaN(valorActual) || isNaN(valorAnterior)) return;
-    this.valorActual = this.calculador[this.tipoOperacion](
-      valorAnterior,
-      valorActual
-    );
   }
 }
